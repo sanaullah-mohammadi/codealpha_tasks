@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="site-header">
+    <div class="header-content">
+      <h1><i class="fa-solid fa-images"></i> Image Gallery</h1>
+      <p class="tagline">Explore &bull; Discover &bull; Enjoy</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main class="main-content">
+
+    <!-- ── Filter Bar + Add Button ── -->
+    <section class="filter-bar" aria-label="Category filters">
+      <button class="filter-btn active" data-filter="all">
+        <i class="fa-solid fa-border-all"></i> All
+      </button>
+      <button class="filter-btn" data-filter="nature">
+        <i class="fa-solid fa-leaf"></i> Nature
+      </button>
+      <button class="filter-btn" data-filter="cars">
+        <i class="fa-solid fa-car"></i> Cars
+      </button>
+      <button class="filter-btn" data-filter="animals">
+        <i class="fa-solid fa-paw"></i> Animals
+      </button>
+      <button class="filter-btn" data-filter="cities">
+        <i class="fa-solid fa-city"></i> Cities
+      </button>
+
+      <!-- Add Image Button -->
+      <button class="add-toggle-btn" id="addToggleBtn" aria-haspopup="dialog">
+        <i class="fa-solid fa-plus"></i> Add Image
+      </button>
+    </section>
+
+    <!-- ── Gallery Grid ── -->
+    <section class="gallery" id="gallery" aria-label="Photo gallery">
+
+      <!-- Nature -->
+      <div class="gallery-item" data-category="nature" data-index="0" tabindex="0" role="button" aria-label="Open image 1">
+        <img src='./images/Mountain_landscape.png' width="600" height="80" alt="Mountain landscape" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Nature</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="nature" data-index="1" tabindex="0" role="button" aria-label="Open image 2">
+        <img src="./images/Forest_path.png"  width="600" height="80" alt="Forest path" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Nature</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="nature" data-index="2" tabindex="0" role="button" aria-label="Open image 3">
+        <img src='./images/Green_hills.png'  width="600" height="80" alt="Green hills" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Nature</span>
+        </div>
+      </div>
+
+      <!-- Cars -->
+      <div class="gallery-item" data-category="cars" data-index="3" tabindex="0" role="button" aria-label="Open image 4">
+        <img src='./images/Red_sports_car.png' alt="Red sports car" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cars</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="cars" data-index="4" tabindex="0" role="button" aria-label="Open image 5">
+        <img src='./images/Classic_car.png' alt="Classic car" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cars</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="cars" data-index="5" tabindex="0" role="button" aria-label="Open image 6">
+        <img src='./images/Luxury_car.png' alt="Luxury car" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cars</span>
+        </div>
+      </div>
+
+      <!-- Animals -->
+      <div class="gallery-item" data-category="animals" data-index="6" tabindex="0" role="button" aria-label="Open image 7">
+        <img src="./images/Fox_in_snow.png" alt="Fox in snow" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Animals</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="animals" data-index="7" tabindex="0" role="button" aria-label="Open image 8">
+        <img src="./images/Sea_turtle.png" alt="Sea turtle" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Animals</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="animals" data-index="8" tabindex="0" role="button" aria-label="Open image 9">
+        <img src="./images/Elephant.png" alt="Elephant" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Animals</span>
+        </div>
+      </div>
+
+      <!-- Cities -->
+      <div class="gallery-item" data-category="cities" data-index="9" tabindex="0" role="button" aria-label="Open image 10">
+        <img src="./images/City_skyline.png" alt="City skyline" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cities</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="cities" data-index="10" tabindex="0" role="button" aria-label="Open image 11">
+        <img src="./images/New_York.png" alt="New York" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cities</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="cities" data-index="11" tabindex="0" role="button" aria-label="Open image 12">
+        <img src="./images/City_at_night.png" alt="City at night" loading="lazy" />
+        <div class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          <span class="overlay-label">Cities</span>
+        </div>
+      </div>
+
+    </section><!-- /.gallery -->
+
+    <!-- No results message -->
+    <p class="no-results" id="noResults" hidden>No images found in this category.</p>
+
+  </main><!-- /.main-content -->
+
+  <!-- ═══════════════ ADD IMAGE MODAL ═══════════════ -->
+  <div class="add-modal" id="addModal" role="dialog" aria-modal="true" aria-label="Add new image" hidden>
+
+    <!-- Backdrop -->
+    <div class="add-modal-backdrop" id="addModalBackdrop"></div>
+
+    <!-- Modal Box -->
+    <div class="add-form" id="addForm">
+
+      <!-- Header row -->
+      <div class="add-form-header">
+        <h2 class="add-form-title"><i class="fa-solid fa-image"></i> Add New Image</h2>
+        <button class="add-modal-close" id="addModalClose" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Drop Zone -->
+      <label class="drop-zone" id="dropZone" for="fileInput">
+        <div class="drop-zone-inner" id="dropZoneInner">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <p>Drag &amp; drop image here</p>
+          <span>or click to browse</span>
+        </div>
+        <img class="drop-preview" id="dropPreview" src="" alt="" hidden />
+        <input type="file" id="fileInput" accept="image/*" class="visually-hidden" />
+      </label>
+
+      <!-- Category Select -->
+      <div class="add-form-row">
+        <label for="categorySelect" class="add-label">Category</label>
+        <select id="categorySelect" class="add-select">
+          <option value="nature">🌿 Nature</option>
+          <option value="cars">🚗 Cars</option>
+          <option value="animals">🐾 Animals</option>
+          <option value="cities">🏙️ Cities</option>
+          <option value="other">📷 Other</option>
+        </select>
+      </div>
+
+      <!-- Caption Input -->
+      <div class="add-form-row">
+        <label for="captionInput" class="add-label">Caption <span class="opt">(optional)</span></label>
+        <input type="text" id="captionInput" class="add-input" placeholder="e.g. Sunset over the mountains" maxlength="80" />
+      </div>
+
+      <!-- Error message -->
+      <p class="add-error" id="addError" hidden>Please select an image first.</p>
+
+      <!-- Actions -->
+      <div class="add-actions">
+        <button class="add-cancel-btn" id="addCancelBtn" type="button">Cancel</button>
+        <button class="add-submit-btn" id="addSubmitBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add to Gallery
+        </button>
+      </div>
+
+    </div><!-- /.add-form -->
+  </div><!-- /.add-modal -->
+
+  <!-- ═══════════════ LIGHTBOX ═══════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+
+    <!-- Backdrop (click to close) -->
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+    <!-- Container -->
+    <div class="lightbox-container">
+
+      <!-- Close button -->
+      <button class="lb-btn lb-close" id="lbClose" aria-label="Close lightbox">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Counter -->
+      <div class="lb-counter" id="lbCounter">1 / 12</div>
+
+      <!-- Image wrapper -->
+      <div class="lb-image-wrap">
+        <img src="" alt="" id="lbImage" class="lb-image" />
+      </div>
+
+      <!-- Caption -->
+      <div class="lb-caption" id="lbCaption"></div>
+
+      <!-- Navigation -->
+      <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous image">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="lb-btn lb-next" id="lbNext" aria-label="Next image">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+    </div><!-- /.lightbox-container -->
+  </div><!-- /.lightbox -->
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Image Gallery &mdash; CodeAlpha Task 1</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
