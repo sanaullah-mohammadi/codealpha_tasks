@@ -1,47 +1,11 @@
-# Image Gallery — CodeAlpha Task 1
+# Image Gallery
 
-A responsive, interactive Image Gallery built with **HTML**, **CSS**, and **vanilla JavaScript**.
+This is my first task for the CodeAlpha internship. I built a simple image gallery using HTML, CSS, and JavaScript.
 
-## Features
+You can filter images by category, click on any image to view it full screen, and navigate through them using the arrow buttons or your keyboard. I also added the ability to upload new images and delete existing ones.
 
-| Feature | Status |
-|---|---|
-| Responsive Grid (4 → 3 → 2 → 1 columns) | ✅ |
-| CSS Hover Effects + Smooth Transitions | ✅ |
-| Lightbox (click to open large view) | ✅ |
-| Next / Previous Navigation | ✅ |
-| Image Counter (e.g. 3 / 12) | ✅ |
-| Close Button (✕) | ✅ |
-| Click-backdrop to close | ✅ |
-| Keyboard: Esc / ← / → | ✅ |
-| Category Filters (All / Nature / Cars / Animals / Cities) | ✅ |
-| Dark Professional UI | ✅ |
-
-## Project Structure
-
-```
-CodeAlpha_ImageGallery/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── images/        ← (optional local images)
-└── README.md
-```
-
-## How to Run
-
-Simply open `index.html` in any modern browser. No build tools or server required.
-
-## Keyboard Shortcuts
-
-| Key | Action |
-|---|---|
-| `Esc` | Close lightbox |
-| `←` | Previous image |
-| `→` | Next image |
+To run it just open `index.html` in a browser.
 
 ---
 
-*CodeAlpha Internship Task 1 — August 2026*
+CodeAlpha Internship — Task 1 | August 2026
