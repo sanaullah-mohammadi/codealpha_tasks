@@ -44,13 +44,7 @@ function init() {
 
   // Gallery item click / keyboard
   allItems.forEach(item => {
-    item.addEventListener('click', () => openLightbox(item));
-    item.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(item);
-      }
-    });
+    attachItemEvents(item);
   });
 
   // Filter buttons
@@ -69,8 +63,95 @@ function init() {
 }
 
 /* ─────────────────────────────────────────
-   Category Filter
+   Attach events to a gallery item
 ───────────────────────────────────────── */
+function attachItemEvents(item) {
+  // Open lightbox on click (but not when clicking the delete button)
+  item.addEventListener('click', e => {
+    if (e.target.closest('.delete-btn')) return;
+    openLightbox(item);
+  });
+
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(item);
+    }
+  });
+
+  // Delete button
+  const deleteBtn = item.querySelector('.delete-btn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      removeItem(item);
+    });
+  }
+}
+
+/* ─────────────────────────────────────────
+   Remove an item from the gallery
+───────────────────────────────────────── */
+let pendingRemoveItem = null;
+
+function removeItem(item) {
+  pendingRemoveItem = item;
+  const confirmOverlay = document.getElementById('confirmOverlay');
+  confirmOverlay.removeAttribute('hidden');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('confirmDeleteBtn').focus();
+}
+
+function confirmRemove() {
+  const item = pendingRemoveItem;
+  if (!item) return;
+  pendingRemoveItem = null;
+
+  closeConfirm();
+
+  // If lightbox is open on this item, close it first
+  if (!lightbox.hasAttribute('hidden') && visibleItems[currentIndex] === item) {
+    closeLightbox();
+  }
+
+  // Animate out, then remove from DOM and state
+  item.classList.add('removing');
+  item.addEventListener('animationend', () => {
+    item.remove();
+    allItems     = allItems.filter(i => i !== item);
+    visibleItems = visibleItems.filter(i => i !== item);
+
+    // Clamp currentIndex
+    if (currentIndex >= visibleItems.length) {
+      currentIndex = Math.max(0, visibleItems.length - 1);
+    }
+
+    // Show "no results" if nothing left in current filter
+    noResults.hidden = visibleItems.length > 0;
+  }, { once: true });
+}
+
+function closeConfirm() {
+  const confirmOverlay = document.getElementById('confirmOverlay');
+  confirmOverlay.setAttribute('hidden', '');
+  document.body.style.overflow = '';
+  pendingRemoveItem = null;
+}
+
+function initConfirmDialog() {
+  document.getElementById('confirmDeleteBtn').addEventListener('click', confirmRemove);
+  document.getElementById('confirmCancelBtn').addEventListener('click', closeConfirm);
+  document.getElementById('confirmOverlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeConfirm();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !document.getElementById('confirmOverlay').hasAttribute('hidden')) {
+      closeConfirm();
+    }
+  });
+}
+
+
 function applyFilter(filter) {
   activeFilter = filter;
 
@@ -313,18 +394,13 @@ function addItemToGallery(src, caption, category) {
       <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
       <span class="overlay-label">${capitalise(category)}</span>
     </div>
+    <button class="delete-btn" aria-label="Remove image"><i class="fa-solid fa-trash"></i></button>
   `;
 
   gallery.appendChild(item);
 
   // Register events
-  item.addEventListener('click', () => openLightbox(item));
-  item.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openLightbox(item);
-    }
-  });
+  attachItemEvents(item);
 
   // Update state
   allItems.push(item);
@@ -354,4 +430,5 @@ function capitalise(str) {
 document.addEventListener('DOMContentLoaded', () => {
   init();
   initAddPanel();
+  initConfirmDialog();
 });
