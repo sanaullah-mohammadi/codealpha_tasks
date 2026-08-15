@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harmony — Music Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- Animated Background -->
+    <div class="bg-scene" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+      <div class="noise-overlay"></div>
+    </div>
+
+    <div class="app-wrapper">
+
+      <!-- ════ LEFT — Player Card ════ -->
+      <div class="player-card glass">
+
+        <!-- Top bar -->
+        <div class="player-topbar">
+          <span class="app-brand">
+            <i class="fa-solid fa-waveform-lines"></i> Harmony
+          </span>
+
+          <!-- Three-dot menu -->
+          <div class="dot-menu-wrap">
+            <button class="dot-menu" id="dotMenuBtn" aria-label="Options" title="Options">
+              <span class="dot d1"></span>
+              <span class="dot d2"></span>
+              <span class="dot d3"></span>
+            </button>
+
+            <div class="dot-dropdown" id="dotDropdown" aria-hidden="true">
+              <button class="dd-item" id="ddAddMusic">
+                <span class="dd-icon"><i class="fa-solid fa-plus"></i></span>
+                <span>Add Music</span>
+              </button>
+              <button class="dd-item" id="ddAddFolder">
+                <span class="dd-icon"><i class="fa-solid fa-folder-open"></i></span>
+                <span>Add Folder</span>
+              </button>
+              <button class="dd-item" id="ddEqualizer">
+                <span class="dd-icon"><i class="fa-solid fa-sliders"></i></span>
+                <span>Equalizer</span>
+              </button>
+              <div class="dd-divider"></div>
+              <button class="dd-item dd-danger" id="ddClearAll">
+                <span class="dd-icon"><i class="fa-solid fa-trash-can"></i></span>
+                <span>Clear Queue</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Album Art -->
+        <div class="album-art-wrapper">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+
+          <div class="album-disc" id="albumArt">
+            <div class="disc-inner">
+              <img id="discImg" src="" alt="" style="display:none;" />
+              <div class="album-placeholder" id="discPlaceholder">
+                <i class="fa-solid fa-music"></i>
+              </div>
+            </div>
+            <div class="disc-center-dot"></div>
+          </div>
+
+          <div class="album-glow" id="albumGlow"></div>
+        </div>
+
+        <!-- Song Info -->
+        <div class="song-info">
+          <h2 class="song-title" id="songTitle">No Track Selected</h2>
+          <p class="song-artist">
+            <span class="artist-dot"></span>
+            <span id="songArtistText">Add music to get started</span>
+          </p>
+        </div>
+
+        <!-- Waveform Visualiser -->
+        <div class="wave-viz paused" id="waveViz" aria-hidden="true">
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span><span class="w-bar"></span>
+          <span class="w-bar"></span><span class="w-bar"></span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <div class="progress-bar-track" id="progressTrack">
+            <div class="progress-bar-fill" id="progressFill"></div>
+            <div class="progress-thumb" id="progressThumb"></div>
+          </div>
+          <div class="time-row">
+            <span class="time-label" id="currentTime">0:00</span>
+            <span class="time-label" id="totalDuration">0:00</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-row">
+          <button class="ctrl-btn icon-btn" id="shuffleBtn" title="Shuffle" aria-label="Shuffle">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button class="ctrl-btn skip-btn" id="prevBtn" title="Previous" aria-label="Previous">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button class="ctrl-btn play-btn" id="playPauseBtn" title="Play / Pause" aria-label="Play or Pause">
+            <span class="play-btn-bg" aria-hidden="true"></span>
+            <i class="fa-solid fa-play" id="playIcon"></i>
+          </button>
+          <button class="ctrl-btn skip-btn" id="nextBtn" title="Next" aria-label="Next">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button class="ctrl-btn icon-btn" id="repeatBtn" title="Repeat" aria-label="Repeat">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+
+        <!-- Volume + Autoplay -->
+        <div class="bottom-strip">
+          <div class="volume-row">
+            <button class="vol-icon-btn" id="muteBtn" title="Mute / Unmute" aria-label="Mute">
+              <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
+            </button>
+            <input type="range" id="volumeSlider" class="volume-slider"
+                   min="0" max="1" step="0.01" value="0.8" aria-label="Volume" />
+            <span class="vol-pct" id="volumeLabel">80%</span>
+          </div>
+
+          <div class="autoplay-pill">
+            <i class="fa-solid fa-circle-play" aria-hidden="true"></i>
+            <span>Autoplay</span>
+            <label class="switch">
+              <input type="checkbox" id="autoplayToggle" checked aria-label="Autoplay" />
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+        </div>
+
+      </div><!-- /player-card -->
+
+      <!-- Equalizer overlay — positioned absolutely over the player card top -->
+      <div class="eq-overlay" id="eqPanel" aria-hidden="true">
+        <div class="eq-overlay-inner">
+          <div class="eq-header">
+            <span class="eq-title"><i class="fa-solid fa-sliders"></i> Equalizer</span>
+            <button class="eq-close-btn" id="eqCloseBtn" aria-label="Close equalizer">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="eq-row">
+            <label class="eq-label">Bass</label>
+            <input type="range" class="eq-slider" id="eqBass" min="-10" max="10" step="1" value="0" />
+            <span class="eq-val" id="eqBassVal">0</span>
+          </div>
+          <div class="eq-row">
+            <label class="eq-label">Mid</label>
+            <input type="range" class="eq-slider" id="eqMid" min="-10" max="10" step="1" value="0" />
+            <span class="eq-val" id="eqMidVal">0</span>
+          </div>
+          <div class="eq-row">
+            <label class="eq-label">Treble</label>
+            <input type="range" class="eq-slider" id="eqTreble" min="-10" max="10" step="1" value="0" />
+            <span class="eq-val" id="eqTrebleVal">0</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ════ RIGHT — Playlist Panel ════ -->
+      <div class="playlist-panel glass" id="playlistPanel">
+
+        <!-- Header -->
+        <div class="playlist-header">
+          <div class="ph-left">
+            <div class="ph-icon" aria-hidden="true">
+              <i class="fa-solid fa-headphones"></i>
+            </div>
+            <div>
+              <h3>Queue</h3>
+              <span class="track-count" id="trackCount">0 tracks</span>
+            </div>
+          </div>
+
+          <div class="ph-actions">
+            <!-- files: individual tracks -->
+            <input type="file" id="fileInput" accept="audio/*" multiple hidden />
+            <!-- folder: entire music folder -->
+            <input type="file" id="folderInput" accept="audio/*" multiple
+                   webkitdirectory mozdirectory hidden />
+
+            <button class="add-music-btn" id="addMusicBtn" title="Add individual music files">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Music</span>
+            </button>
+            <button class="add-music-btn add-folder-btn" id="addFolderBtn" title="Add an entire folder">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Add Folder</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty state (shown when no tracks) -->
+        <div class="drop-zone" id="dropZone">
+          <div class="dz-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <p class="dz-title">Drop music or a folder here</p>
+          <p class="dz-sub">or use <strong>Add Music</strong> / <strong>Add Folder</strong></p>
+          <p class="dz-formats">MP3 · WAV · FLAC · OGG · AAC</p>
+        </div>
+
+        <!-- Track list (shown when tracks exist) -->
+        <ul class="playlist" id="playlist" role="list" aria-label="Track list"></ul>
+
+      </div><!-- /playlist-panel -->
+
+    </div><!-- /app-wrapper -->
+
+    <audio id="audioPlayer"></audio>
+
+    <!-- jsmediatags — reads ID3 tags (title, artist, cover art) from local files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
