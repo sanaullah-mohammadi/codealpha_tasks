@@ -711,6 +711,8 @@ body {
   transition: border-color var(--t), background var(--t);
 }
 
+.drop-zone { cursor: pointer; }
+
 .playlist-panel.drag-over .drop-zone,
 .drop-zone:hover {
   border-color: rgba(199,125,255,.6);

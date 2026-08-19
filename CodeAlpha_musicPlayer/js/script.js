@@ -209,6 +209,9 @@ addFolderBtn.addEventListener("click", () => folderInput.click());
 fileInput.addEventListener("change",   e  => { handleFiles(e.target.files); fileInput.value = ""; });
 folderInput.addEventListener("change", e  => { handleFiles(e.target.files); folderInput.value = ""; });
 
+// Clicking anywhere on the drop zone opens the file picker
+dropZone.addEventListener("click", () => fileInput.click());
+
 // ─── Drag & Drop ─────────────────────────────────────────────────────────────
 playlistPanel.addEventListener("dragover", e => {
   e.preventDefault();
